@@ -1,0 +1,895 @@
+ <!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mak AI | Mehariw Melak Beize</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-gradient: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            --bg-color: #f8fafc;
+            --text-color: #0f172a;
+            --text-muted: #64748b;
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --border-color: rgba(0, 0, 0, 0.1);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+            --nav-bg: rgba(248, 250, 252, 0.8);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            --nav-bg: rgba(15, 23, 42, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Glassmorphism utility */
+        .glass {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: var(--glass-shadow);
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p {
+            color: var(--text-muted);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--text-color);
+            border: 2px solid var(--primary);
+        }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .logo {
+font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        #theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        #theme-toggle:hover {
+            transform: rotate(20deg);
+        }
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        /* Layout */
+        section {
+            padding: 5rem 5%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Hero Section */
+        #hero {
+            flex-direction: row;
+            align-items: center;
+            gap: 2rem;
+            padding-top: 8rem;
+        }
+        .hero-content {
+            flex: 1;
+        }
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+        }
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        .hero-intro {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            perspective: 1000px;
+        }
+        .hero-img-wrapper {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            padding: 5px;
+            animation: float 6s ease-in-out infinite;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+        .hero-img-wrapper:hover {
+            transform: rotateX(10deg) rotateY(-10deg);
+        }
+        .hero-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--bg-color);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        .about-text p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .stat-card {
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        .stat-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+ /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .skill-category {
+            padding: 2rem;
+        }
+        .skill-category h3 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .skill-list {
+            list-style: none;
+        }
+        .skill-list li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .skill-list li::before {
+            content: '▹';
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .service-card {
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary-gradient);
+        }
+        .service-card h3 {
+            margin: 1rem 0;
+            font-size: 1.5rem;
+        }
+        .service-card p {
+            margin-bottom: 1.5rem;
+        }
+        .service-features {
+            list-style: none;
+        }
+        .service-features li {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+        .service-features li i {
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        .project-card {
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+        .project-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .project-info {
+            padding: 1.5rem;
+        }
+        .project-info h3 {
+            margin-bottom: 0.5rem;
+        }
+        .project-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .tool-tag {
+            font-size: 0.8rem;
+            padding: 0.3rem 0.8rem;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        /* Testimonials Section */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .testimonial-card {
+            padding: 2rem;
+            text-align: center;
+        }
+        .quote-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            opacity: 0.3;
+            margin-bottom: 1rem;
+        }
+        .feedback {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        .client-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .client-avatar {
+            width: 50px;
+ height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .client-details h4 {
+            font-size: 1rem;
+            margin: 0;
+        }
+        .client-details span {
+            font-size: 0.8rem;
+            color: var(--primary);
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .contact-cards {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .contact-card {
+            padding: 2rem;
+            flex: 1;
+            min-width: 250px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+        .contact-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .social-links a {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            transition: color 0.3s, transform 0.3s;
+        }
+        .social-links a:hover {
+            color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+        }
+
+        /* Animations via Observer */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            #hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                padding-top: 6rem;
+            }
+            .hero-intro {
+                margin: 0 auto 2rem;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background: var(--nav-bg);
+                backdrop-filter: blur(10px);
+                padding: 1rem 0;
+                text-align: center;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .hamburger {
+                display: block;
+            }
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#hero" class="logo"><i class="fas fa-network-wired" style="color: var(--primary);"></i>Mak AI</a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+<li><a href="#contact">Contact</a></li>
+        </ul>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+            <i class="fas fa-bars hamburger" id="hamburger"></i>
+        </div>
+    </nav>
+
+    <section id="hero" class="container">
+        <div class="hero-content fade-in">
+            <h1>Mak AI</h1>
+            <div class="hero-subtitle">Architecting Intelligence & Optimizing Potential</div>
+            <p class="hero-intro">I am Mehariw Melak Beize. A versatile professional merging the power of <strong>AI Automation</strong>, dynamic <strong>Video Editing</strong>, and transformative <strong>Fitness Coaching</strong> to deliver comprehensive solutions that drive results, build brands, and enhance human performance.</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+                <a href="#contact" class="btn btn-outline">Contact Me</a>
+            </div>
+        </div>
+        <div class="hero-image fade-in">
+            <div class="hero-img-wrapper">
+                <img src="image_0.png" alt="Mehariw Melak Beize (Mak AI) Profile">
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2 class="fade-in">About Me</h2>
+            <div class="about-grid">
+                <div class="about-text fade-in">
+                    <p>I thrive at the intersection of technology, creativity, and human performance. As a specialist in <strong>AI Automation & Systems</strong>, I build intelligent workflows that save time and scale operations. I harness tools like ChatGPT and custom prompt engineering to solve complex business problems.</p>
+                    <p>My creative side is fueled by professional <strong>Video Editing</strong>. Using Premiere Pro, CapCut, and Canva, I transform raw footage into compelling, high-retention content tailored for modern digital platforms.</p>
+                    <p>Beyond the screen, I am a dedicated <strong>Fitness Coach</strong>. I apply a results-driven, analytical approach to fat loss, muscle building, and specialized women's programs, utilizing clear communication to guide clients toward their ultimate physical transformations.</p>
+                    <p>My core philosophy? <em>A problem-solving mindset applied to every challenge, ensuring results-driven outcomes across all domains.</em></p>
+                </div>
+                <div class="about-stats fade-in">
+                    <div class="stat-card glass">
+                        <i class="fas fa-robot"></i>
+                        <h3>AI</h3>
+                        <p>Automation Workflows</p>
+                    </div>
+                    <div class="stat-card glass">
+                        <i class="fas fa-film"></i>
+                        <h3>Video</h3>
+                        <p>High-Retention Edits</p>
+                    </div>
+                    <div class="stat-card glass">
+                        <i class="fas fa-dumbbell"></i>
+                        <h3>Fitness</h3>
+                        <p>Client Transformations</p>
+                    </div>
+                    <div class="stat-card glass">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Results</h3>
+                        <p>Data-Driven Growth</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2 class="fade-in">Core Competencies</h2>
+            <div class="skills-grid">
+                <div class="skill-category glass fade-in">
+                    <h3><i class="fas fa-brain"></i> AI & Automation</h3>
+ <ul class="skill-list">
+                        <li>AI Prompt Engineering</li>
+                        <li>AI Workflow Automation</li>
+                        <li>ChatGPT Integration</li>
+                        <li>Data Analysis</li>
+                        <li>System Optimization</li>
+                    </ul>
+                </div>
+                <div class="skill-category glass fade-in">
+                    <h3><i class="fas fa-video"></i> Video Editing</h3>
+                    <ul class="skill-list">
+                        <li>Adobe Premiere Pro</li>
+                        <li>CapCut Mastery</li>
+                        <li>Canva Design</li>
+                        <li>Content Creation</li>
+                        <li>Visual Storytelling</li>
+                    </ul>
+                </div>
+                <div class="skill-category glass fade-in">
+                    <h3><i class="fas fa-heartbeat"></i> Fitness Coaching</h3>
+                    <ul class="skill-list">
+                        <li>Fat Loss Strategies</li>
+                        <li>Muscle Building Protocols</li>
+                        <li>Women's Fitness Programs</li>
+                        <li>Nutritional Guidance</li>
+                        <li>Coaching Communication</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <h2 class="fade-in">My Services</h2>
+            <div class="services-grid">
+                <div class="service-card glass fade-in">
+                    <i class="fas fa-cogs fa-2x" style="color: var(--primary);"></i>
+                    <h3>AI Automation Intelligence</h3>
+                    <p>Streamline your business operations with custom AI solutions designed to minimize manual work and maximize efficiency.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check-circle"></i> Custom ChatGPT implementations</li>
+                        <li><i class="fas fa-check-circle"></i> Automated task workflows</li>
+                        <li><i class="fas fa-check-circle"></i> Advanced data processing</li>
+                        <li><i class="fas fa-check-circle"></i> Prompt optimization</li>
+                    </ul>
+                </div>
+                <div class="service-card glass fade-in">
+                    <i class="fas fa-user-md fa-2x" style="color: var(--primary);"></i>
+                    <h3>Fitness Coaching</h3>
+                    <p>Personalized training protocols tailored to your physiology, lifestyle, and specific goals for sustainable transformations.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check-circle"></i> Evidence-based muscle building</li>
+                        <li><i class="fas fa-check-circle"></i> Sustainable fat loss plans</li>
+                        <li><i class="fas fa-check-circle"></i> Specialized women's programming</li>
+                        <li><i class="fas fa-check-circle"></i> 1-on-1 accountability</li>
+                    </ul>
+                </div>
+                <div class="service-card glass fade-in">
+                    <i class="fas fa-photo-video fa-2x" style="color: var(--primary);"></i>
+                    <h3>Video Editing</h3>
+                    <p>Captivating visual content editing that hooks viewers, retains attention, and elevates your digital brand presence.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check-circle"></i> Short-form content (Reels/TikToks)</li>
+                        <li><i class="fas fa-check-circle"></i> Long-form YouTube editing</li>
+                        <li><i class="fas fa-check-circle"></i> Color grading & audio mixing</li>
+                        <li><i class="fas fa-check-circle"></i> Dynamic transitions & effects</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+<section id="projects">
+        <div class="container">
+            <h2 class="fade-in">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card glass fade-in">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="AI Automation System" class="project-img">
+                    <div class="project-info">
+                        <h3>Customer Service AI Bot</h3>
+                        <p>An automated workflow integrating ChatGPT to handle tier-1 customer support queries, reducing response times by 80%.</p>
+                        <div class="project-tools">
+                            <span class="tool-tag">OpenAI API</span>
+                            <span class="tool-tag">Zapier</span>
+                            <span class="tool-tag">Prompt Engineering</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card glass fade-in">
+                    <img src="my-nw_l.png" alt="Fitness Transformation" class="project-img">
+                    <div class="project-info">
+                        <h3>90-Day Fat Loss Protocol</h3>
+                        <p>A comprehensive coaching app integration delivering personalized workouts and nutrition tracking, resulting in an average 15lb fat loss per client.</p>
+                        <div class="project-tools">
+                            <span class="tool-tag">Program Design</span>
+                            <span class="tool-tag">Client Tracking</span>
+                            <span class="tool-tag">Nutritional Planning</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card glass fade-in">
+                    <img src="my-video-work.jpg" alt="Brand Cinematic Reel Picture" class="project-img">
+                    <div class="project-info">
+                        <h3>Brand Cinematic Reel</h3>
+                        <p>A high-energy promotional video compiled from raw event footage, utilizing advanced color grading and dynamic motion graphics.</p>
+                        <div class="project-tools">
+                            <span class="tool-tag">Premiere Pro</span>
+                            <span class="tool-tag">CapCut</span>
+                            <span class="tool-tag">Color Grading</span>
+                        </div>
+                    </div>
+                </div>
+                 <div class="project-card glass fade-in">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Data Analysis Dashboard" class="project-img">
+                    <div class="project-info">
+                        <h3>Automated KPI Dashboard</h3>
+                        <p>Developed a data pipeline that pulls metrics across multiple platforms, summarized weekly via AI-generated reports.</p>
+                        <div class="project-tools">
+                            <span class="tool-tag">Data Analysis</span>
+                            <span class="tool-tag">Workflow Automation</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card glass fade-in">
+                    <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Women's Fitness Program" class="project-img">
+                    <div class="project-info">
+ <h3>Women's Strength Initiative</h3>
+                        <p>A specialized digital product focusing on biomechanics and hypertrophy for women, complete with video demonstrations.</p>
+                        <div class="project-tools">
+                            <span class="tool-tag">Fitness Coaching</span>
+                            <span class="tool-tag">Canva</span>
+                        </div>
+                    </div>
+                </div>
+                 <div class="project-card glass fade-in">
+                    <img src="https://images.unsplash.com/photo-1616469829581-73993eb86b02?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Social Media Content" class="project-img">
+                    <div class="project-info">
+                        <h3>Viral Short-Form Content</h3>
+                        <p>Edited a batch of 30 short-form educational videos optimized for TikTok and Instagram Reels, achieving 500k+ organic views.</p>
+                        <div class="project-tools">
+                            <span class="tool-tag">CapCut</span>
+                            <span class="tool-tag">Content Strategy</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <div class="container">
+            <h2 class="fade-in">Client Feedback</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card glass fade-in">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p class="feedback">"Mak completely revolutionized our internal processes. The AI automation workflows he set up saved my team over 20 hours a week. Truly exceptional problem-solving skills."</p>
+                    <div class="client-info">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Sarah J." class="client-avatar">
+                        <div class="client-details">
+                            <h4>Sarah J.</h4>
+                            <span>Tech Startup Founder</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card glass fade-in">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p class="feedback">"Working with Mehariw as my fitness coach changed my life. His approach is highly analytical, and his communication made the complex simple. I hit my fat loss goal in just 4 months."</p>
+                    <div class="client-info">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Elena M." class="client-avatar">
+                        <div class="client-details">
+                            <h4>Elena M.</h4>
+                            <span>Coaching Client</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card glass fade-in">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p class="feedback">"The video edits Mak delivered for our marketing campaign were absolutely top-tier. Professional, fast, and he intuitively understood the exact pacing we needed to keep viewers hooked."</p>
+                    <div class="client-info">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="David R." class="client-avatar">
+                        <div class="client-details">
+                            <h4>David R.</h4>
+                            <span>Marketing Director</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ <section id="contact">
+        <div class="container">
+            <h2 class="fade-in">Let's Work Together</h2>
+            <div class="contact-content fade-in">
+                <p>Whether you need to automate your business, transform your health, or elevate your content, I'm here to help. Reach out and let's discuss how we can achieve your goals.</p>
+                
+                <div class="contact-cards">
+                    <a href="mailto:makb79800@gmail.com" class="contact-card glass">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email Me</h3>
+                            <p>makb79800@gmail.com</p>
+                        </div>
+                    </a>
+                    <a href="https://wa.me/2519496399929" target="_blank" class="contact-card glass">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <h3>WhatsApp</h3>
+                            <p>+251 949 639 992</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Mehariw Melak Beize (Mak AI). All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Dark/Light Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const icon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                icon.className = 'fas fa-sun';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-moon';
+            }
+        });
+
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('fa-bars');
+            hamburger.classList.toggle('fa-times');
+        });
+
+        // Close mobile menu on click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('fa-times');
+                hamburger.classList.add('fa-bars');
+            });
+        });
+
+        // Scroll Animations using Intersection Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
